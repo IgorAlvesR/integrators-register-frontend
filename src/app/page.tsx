@@ -1,7 +1,7 @@
-export default function Home() {
+export default function Integrators() {
   return (
-    <main>
-      <h1>Hello World</h1>
-    </main>
+    <section>
+      <h1>Integradores</h1>
+    </section>
   )
 }
