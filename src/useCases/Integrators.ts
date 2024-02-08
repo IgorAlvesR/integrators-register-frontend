@@ -1,12 +1,13 @@
 import { ServiceIntegrator } from './ServiceIntegrator'
 
 export type IntegratorType = {
+  id: string
   CPFOrCNPJ: string
   integratorName: string
   ownerName: string
   city: string
   state: string
-  panelBrand: string[]
+  panelBrand: Array<string>
   companySize: 'small' | 'medium' | 'large'
 }
 

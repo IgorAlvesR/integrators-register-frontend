@@ -1,4 +1,5 @@
 'use client'
+import { CardIntegrator } from '@/components/CardIntegrator'
 import { SkeletonListIntegrator } from '@/components/SkeletonListIntegrator'
 import { Api } from '@/services/Api'
 import { Integrator, IntegratorType } from '@/useCases/Integrators'
@@ -40,9 +41,14 @@ export default function Integrators() {
   }
 
   return (
-    <section data-testid="list-integrator">
+    <section
+      data-testid="list-integrator"
+      className="grid grid-cols-1 md:grid-cols-2 gap-3"
+    >
       {data.map((integrator) => {
-        return <h1 key={integrator.CPFOrCNPJ}>{integrator.ownerName}</h1>
+        return (
+          <CardIntegrator key={integrator.CPFOrCNPJ} integrator={integrator} />
+        )
       })}
     </section>
   )
