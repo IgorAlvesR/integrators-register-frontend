@@ -1,12 +1,9 @@
 'use client'
 
 import { ReactNode } from 'react'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClientProvider } from 'react-query'
 import { ThemeProvider } from './theme/ThemeProvider'
-
-const queryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnMount: true } },
-})
+import { queryClient } from '@/lib/queryClient'
 
 type ProvidersProps = {
   children: ReactNode

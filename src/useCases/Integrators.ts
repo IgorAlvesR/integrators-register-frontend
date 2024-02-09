@@ -23,4 +23,12 @@ export class Integrator {
       throw new Error('Não foi possível buscar os integradores!')
     }
   }
+
+  async removeIntegrator(id: string): Promise<void> {
+    try {
+      await this.api.removeIntegrator(id)
+    } catch (error) {
+      throw new Error('Não foi possível remover o integrador!')
+    }
+  }
 }

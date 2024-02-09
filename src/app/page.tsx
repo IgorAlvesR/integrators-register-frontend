@@ -3,17 +3,18 @@ import { CardIntegrator } from '@/components/CardIntegrator'
 import { SkeletonListIntegrator } from '@/components/SkeletonListIntegrator'
 import { Api } from '@/services/Api'
 import { Integrator, IntegratorType } from '@/useCases/Integrators'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import { toast } from 'sonner'
+import { queryClient } from '@/lib/queryClient'
 
 const serviceApi = new Api()
-const integrator = new Integrator(serviceApi)
+const integratorUseCase = new Integrator(serviceApi)
 
 export default function Integrators() {
-  const { isLoading, data } = useQuery<IntegratorType[]>(
+  const { isLoading: isLoadingIntegrators, data } = useQuery<IntegratorType[]>(
     'integratorsQuery',
     async () => {
-      const integrators = await integrator.getIntegrators()
+      const integrators = await integratorUseCase.getIntegrators()
       return integrators
     },
     {
@@ -24,9 +25,24 @@ export default function Integrators() {
     },
   )
 
+  const { mutate: removeIntegrator, status: statusRemove } = useMutation({
+    mutationFn: async (id: string) => {
+      try {
+        await integratorUseCase.removeIntegrator(id)
+        toast.success('Integrador removido com sucesso!')
+      } catch (error) {
+        const { message } = error as Error
+        toast.error(message)
+      }
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['integratorsQuery'] })
+    },
+  })
+
   const isEmptyList = !data?.length
 
-  if (isLoading) {
+  if (isLoadingIntegrators) {
     return <SkeletonListIntegrator />
   }
 
@@ -47,7 +63,13 @@ export default function Integrators() {
     >
       {data.map((integrator) => {
         return (
-          <CardIntegrator key={integrator.CPFOrCNPJ} integrator={integrator} />
+          <CardIntegrator
+            isRemoving={statusRemove === 'loading'}
+            onEdit={() => ({})}
+            onRemove={removeIntegrator}
+            key={integrator.id}
+            integrator={integrator}
+          />
         )
       })}
     </section>

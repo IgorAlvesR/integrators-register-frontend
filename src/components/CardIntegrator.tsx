@@ -1,23 +1,27 @@
+'use client'
 import { IntegratorType } from '@/useCases/Integrators'
+import { PencilLine } from 'lucide-react'
+import { RemoveIntegrator } from './RemoveIntegrator'
+import { Badge } from './ui/badge'
 import {
   Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
 } from './ui/card'
-import { PencilLine, Trash } from 'lucide-react'
-import { Badge } from './ui/badge'
 
 type CardIntegratorProps = {
   integrator: IntegratorType
+  isRemoving?: boolean
   onEdit: (id: string) => void
   onRemove: (id: string) => void
 }
 
 export function CardIntegrator({
   integrator,
+  isRemoving,
   onEdit,
   onRemove,
 }: CardIntegratorProps) {
@@ -34,12 +38,12 @@ export function CardIntegrator({
               >
                 <PencilLine className="w-5 h-5 cursor-pointer" />
               </span>
-              <span
-                onClick={() => onRemove(integrator.id)}
-                className="rounded-full flex items-center hover:bg-primary-foreground transition-all"
-              >
-                <Trash className="w-5 h-5 text-red-500 cursor-pointer" />
-              </span>
+
+              <RemoveIntegrator
+                integrator={integrator}
+                onRemove={onRemove}
+                isLoading={isRemoving}
+              />
             </div>
           </section>
         </CardTitle>
