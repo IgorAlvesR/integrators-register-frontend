@@ -1,14 +1,16 @@
 import { ServiceIntegrator } from './ServiceIntegrator'
 
+export type CompanySize = 'Pequena' | 'Media' | 'Grande'
+
 export type IntegratorType = {
   id: string
-  CPFOrCNPJ: string
+  cpfCnpj: string
   integratorName: string
   ownerName: string
   city: string
   state: string
   panelBrand: Array<string>
-  companySize: 'small' | 'medium' | 'large'
+  companySize: CompanySize
 }
 
 export class Integrator {
@@ -29,6 +31,14 @@ export class Integrator {
       await this.api.removeIntegrator(id)
     } catch (error) {
       throw new Error('Não foi possível remover o integrador!')
+    }
+  }
+
+  async registerIntegrator(data: IntegratorType) {
+    try {
+      await this.api.registerIntegrator(data)
+    } catch (error) {
+      throw new Error('Não foi possível registrar o integrador!')
     }
   }
 }

@@ -8,15 +8,22 @@ export class Memory implements ServiceIntegrator {
     this.integrators = [
       {
         id: '1',
-        CPFOrCNPJ: '61185671000150',
+        cpfCnpj: '61185671000150',
         integratorName: 'Graham, Gerlach and Wisoky',
         ownerName: 'Igor Alves',
         city: 'West Annabellchester',
         state: 'DE',
         panelBrand: ['Trina Solar'],
-        companySize: 'medium',
+        companySize: 'Media',
       },
     ]
+  }
+
+  registerIntegrator(data: IntegratorType): Promise<void> {
+    return new Promise((resolve) => {
+      this.integrators.push(data)
+      resolve()
+    })
   }
 
   async removeIntegrator(id: string): Promise<void> {
