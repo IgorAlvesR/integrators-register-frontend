@@ -41,4 +41,12 @@ export class Integrator {
       throw new Error('Não foi possível registrar o integrador!')
     }
   }
+
+  async editIntegrator(data: IntegratorType) {
+    try {
+      await this.api.editIntegrator(data)
+    } catch (error) {
+      throw new Error('Não foi possível editar os dados do integrador!')
+    }
+  }
 }

@@ -50,7 +50,7 @@ export function FieldState({ value, onChange }: FieldStateProps) {
   }, [])
 
   return (
-    <Select onValueChange={onChange} defaultValue={value}>
+    <Select onValueChange={onChange} value={value}>
       <FormControl>
         <SelectTrigger>
           <SelectValue placeholder="Seleciona um estado..." />

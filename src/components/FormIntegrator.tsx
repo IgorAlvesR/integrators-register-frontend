@@ -12,10 +12,12 @@ import { formSchemaRegisterIntegrator } from '@/schemas/formRegisterIntegrator'
 import { IntegratorType } from '@/useCases/Integrators'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ReloadIcon } from '@radix-ui/react-icons'
-import { BookCheck, CookingPot } from 'lucide-react'
+import { BookCheck } from 'lucide-react'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { FieldCpfCnpj } from './FieldCpfCnpj'
+import { FieldState } from './FieldState'
 import { Button } from './ui/button'
 import { Checkbox } from './ui/checkbox'
 import { Input } from './ui/input'
@@ -26,8 +28,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from './ui/select'
-import { useEffect } from 'react'
-import { FieldState } from './FieldState'
 
 const panelBrands: Array<Record<string, string>> = [
   {
@@ -44,7 +44,8 @@ const panelBrands: Array<Record<string, string>> = [
   { id: 'gcl-si', value: 'GCL-Si' },
 ]
 
-type FormRegisterIntegratorProps = {
+type FormIntegratorProps = {
+  integrator?: IntegratorType
   onSubmit: (data: IntegratorType) => void
   isLoading?: boolean
 }
@@ -56,20 +57,21 @@ const Icon = ({ isLoading }: { isLoading: boolean }) => {
   return <BookCheck className="mr-2 h-4 w-4" />
 }
 
-export function FormRegisterIntegrator({
+export function FormIntegrator({
+  integrator,
   isLoading,
   onSubmit,
-}: FormRegisterIntegratorProps) {
+}: FormIntegratorProps) {
   const form = useForm<z.infer<typeof formSchemaRegisterIntegrator>>({
     resolver: zodResolver(formSchemaRegisterIntegrator),
     defaultValues: {
-      cpfCnpj: '',
-      integratorName: '',
-      ownerName: '',
-      city: '',
-      state: '',
-      panelBrand: [],
-      companySize: 'Pequena',
+      cpfCnpj: integrator?.cpfCnpj || '',
+      integratorName: integrator?.integratorName || '',
+      ownerName: integrator?.ownerName || '',
+      city: integrator?.city || '',
+      state: integrator?.state || '',
+      panelBrand: integrator?.panelBrand.length ? integrator.panelBrand : [],
+      companySize: integrator?.companySize || 'Pequena',
     },
   })
 
@@ -83,10 +85,12 @@ export function FormRegisterIntegrator({
     <Form {...form}>
       <form
         id="form-integrator"
-        onSubmit={form.handleSubmit((data) => onSubmit(data as IntegratorType))}
+        onSubmit={form.handleSubmit((data) =>
+          onSubmit({ ...data, id: integrator?.id } as IntegratorType),
+        )}
         className="space-y-6"
       >
-        <section className="space-y-4">
+        <section className="space-y-3">
           <FormField
             control={form.control}
             name="cpfCnpj"
@@ -131,41 +135,43 @@ export function FormRegisterIntegrator({
             />
           </div>
 
-          <FormField
-            control={form.control}
-            name="state"
-            render={({ field }) => (
-              <FormItem className="">
-                <FormLabel>Estado</FormLabel>
-                <FormControl>
-                  <FieldState value={field.value} onChange={field.onChange} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="flex flex-col md:flex-row md:items-center gap-3">
+            <FormField
+              control={form.control}
+              name="state"
+              render={({ field }) => (
+                <FormItem className="flex-1">
+                  <FormLabel>Estado</FormLabel>
+                  <FormControl>
+                    <FieldState value={field.value} onChange={field.onChange} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="city"
-            render={({ field }) => (
-              <FormItem className="">
-                <FormLabel>Cidade</FormLabel>
-                <FormControl>
-                  <Input placeholder="Tubarão" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="city"
+              render={({ field }) => (
+                <FormItem className="flex-1">
+                  <FormLabel>Cidade</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Tubarão" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
           <FormField
             control={form.control}
             name="panelBrand"
             render={() => (
-              <FormItem className="border rounded-md p-3">
+              <FormItem className=" border rounded-md p-3">
                 <FormLabel>Marcas de panéis</FormLabel>
-                <div className="flex items-center flex-wrap gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                   {panelBrands.map((panelBrand) => (
                     <FormField
                       key={panelBrand.id}
@@ -194,7 +200,7 @@ export function FormRegisterIntegrator({
                                 }}
                               />
                             </FormControl>
-                            <FormLabel className="text-sm font-normal">
+                            <FormLabel className="text-sm font-normal cursor-pointer">
                               {panelBrand.value}
                             </FormLabel>
                           </FormItem>
@@ -214,12 +220,9 @@ export function FormRegisterIntegrator({
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Porte da empresa</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select value={field.value} onValueChange={field.onChange}>
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger value={field.value}>
                       <SelectValue placeholder="Selecione o porte da empresa..." />
                     </SelectTrigger>
                   </FormControl>
@@ -238,7 +241,7 @@ export function FormRegisterIntegrator({
 
         <Button form="form-integrator" type="submit">
           <Icon isLoading={!!isLoading} />
-          Registrar
+          Salvar
         </Button>
       </form>
     </Form>

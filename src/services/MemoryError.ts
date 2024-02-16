@@ -2,6 +2,12 @@ import { IntegratorType } from '@/useCases/Integrators'
 import { ServiceIntegrator } from '@/useCases/ServiceIntegrator'
 
 export class MemoryError implements ServiceIntegrator {
+  async editIntegrator(data: IntegratorType): Promise<void> {
+    return new Promise((resolve, reject) => {
+      reject(new Error(`Erro ao editar dados do integrador ${data.id}`))
+    })
+  }
+
   registerIntegrator(data: IntegratorType): Promise<void> {
     return new Promise((resolve, reject) => {
       reject(new Error(`Erro ao registrar integrador ${data.id}`))

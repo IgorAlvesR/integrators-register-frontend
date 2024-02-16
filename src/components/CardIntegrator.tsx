@@ -1,7 +1,5 @@
 'use client'
 import { IntegratorType } from '@/useCases/Integrators'
-import { PencilLine } from 'lucide-react'
-import { RemoveIntegrator } from './RemoveIntegrator'
 import { Badge } from './ui/badge'
 import {
   Card,
@@ -14,17 +12,10 @@ import {
 
 type CardIntegratorProps = {
   integrator: IntegratorType
-  isRemoving?: boolean
-  onEdit: (id: string) => void
-  onRemove: (id: string) => void
+  children: React.ReactNode
 }
 
-export function CardIntegrator({
-  integrator,
-  isRemoving,
-  onEdit,
-  onRemove,
-}: CardIntegratorProps) {
+export function CardIntegrator({ integrator, children }: CardIntegratorProps) {
   return (
     <Card>
       <CardHeader>
@@ -32,18 +23,7 @@ export function CardIntegrator({
           <section className="flex justify-between">
             {integrator.integratorName}
             <div className="flex flex-col items-center md:flex-row gap-3">
-              <span
-                onClick={() => onEdit(integrator.id)}
-                className="rounded-full flex items-center hover:bg-primary-foreground transition-all"
-              >
-                <PencilLine className="w-5 h-5 cursor-pointer" />
-              </span>
-
-              <RemoveIntegrator
-                integrator={integrator}
-                onRemove={onRemove}
-                isLoading={isRemoving}
-              />
+              {children}
             </div>
           </section>
         </CardTitle>

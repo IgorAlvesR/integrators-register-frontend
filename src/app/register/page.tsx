@@ -1,5 +1,5 @@
 'use client'
-import { FormRegisterIntegrator } from '@/components/FormRegisterIntegrator'
+import { FormIntegrator } from '@/components/FormIntegrator'
 import { queryClient } from '@/lib/queryClient'
 import { Api } from '@/services/Api'
 import { Integrator, IntegratorType } from '@/useCases/Integrators'
@@ -26,7 +26,7 @@ export default function Register() {
   })
   return (
     <main className="border rounded-md p-6">
-      <FormRegisterIntegrator
+      <FormIntegrator
         isLoading={statusRegister === 'loading'}
         onSubmit={registerIntegrator}
       />

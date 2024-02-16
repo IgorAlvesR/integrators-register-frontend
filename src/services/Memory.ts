@@ -19,7 +19,19 @@ export class Memory implements ServiceIntegrator {
     ]
   }
 
-  registerIntegrator(data: IntegratorType): Promise<void> {
+  async editIntegrator(data: IntegratorType): Promise<void> {
+    return new Promise((resolve) => {
+      this.integrators = this.integrators.map((integrator) => {
+        if (data.id === integrator.id) {
+          return data
+        }
+        return integrator
+      })
+      resolve()
+    })
+  }
+
+  async registerIntegrator(data: IntegratorType): Promise<void> {
     return new Promise((resolve) => {
       this.integrators.push(data)
       resolve()

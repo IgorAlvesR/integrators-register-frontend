@@ -3,6 +3,17 @@ import { ServiceIntegrator } from '@/useCases/ServiceIntegrator'
 import axios from 'axios'
 
 export class Api implements ServiceIntegrator {
+  async editIntegrator(data: IntegratorType): Promise<void> {
+    const { id, ...integrator } = data
+    const response = await axios.put(
+      `${process.env.API_BASE_URL}/integrators/${id}`,
+      integrator,
+    )
+    if (!response.data) {
+      throw new Error('Não foi possível editar os dados do integrador!')
+    }
+  }
+
   async registerIntegrator(data: IntegratorType): Promise<void> {
     const response = await axios.post(
       `${process.env.API_BASE_URL}/integrators/`,
@@ -27,6 +38,6 @@ export class Api implements ServiceIntegrator {
     if (!response.data) {
       throw new Error('Não foi possível buscar por integradores!')
     }
-    return response.data
+    return response.data as IntegratorType[]
   }
 }

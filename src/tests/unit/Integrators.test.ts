@@ -70,3 +70,41 @@ test('deve retornar um erro ao registrar um integrador', async () => {
     'Não foi possível registrar o integrador!',
   )
 })
+
+test('deve editar um integrador', async () => {
+  const editedIntegrator: IntegratorType = {
+    id: '1',
+    cpfCnpj: '10196083907',
+    integratorName: 'Igor',
+    ownerName: 'Thay',
+    city: 'Tubarão',
+    state: 'Santa Catarina',
+    companySize: 'Media',
+    panelBrand: ['Trina Solar'],
+  }
+
+  const service = new Memory()
+  const integrator = new Integrator(service)
+  await integrator.editIntegrator(editedIntegrator)
+  const integrators = await integrator.getIntegrators()
+
+  expect(integrators[0].ownerName).toBe('Thay')
+})
+
+test('deve retornar um erro ao editar um integrador', async () => {
+  const editedIntegrator: IntegratorType = {
+    id: '1',
+    cpfCnpj: '10196083907',
+    integratorName: 'Igor',
+    ownerName: 'Thay',
+    city: 'Tubarão',
+    state: 'Santa Catarina',
+    companySize: 'Media',
+    panelBrand: ['Trina Solar'],
+  }
+  const service = new MemoryError()
+  const integrator = new Integrator(service)
+  expect(() => integrator.editIntegrator(editedIntegrator)).rejects.toThrow(
+    'Não foi possível editar os dados do integrador!',
+  )
+})
