@@ -186,7 +186,7 @@ export function FormIntegrator({
                             <FormControl>
                               <Checkbox
                                 checked={field.value?.includes(panelBrand.id)}
-                                onCheckedChange={(checked) => {
+                                onCheckedChange={(checked: boolean) => {
                                   return checked
                                     ? field.onChange([
                                         ...field.value,
