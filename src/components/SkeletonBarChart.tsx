@@ -20,11 +20,5 @@ function SkeletonCard() {
 }
 
 export function SkeletonBarChart() {
-  return (
-    <section className="grid grid-cols-1 gap-3 h-48">
-      <div>
-        <SkeletonCard />
-      </div>
-    </section>
-  )
+  return <SkeletonCard />
 }

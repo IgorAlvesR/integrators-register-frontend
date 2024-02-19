@@ -1,10 +1,26 @@
-import { IntegratorType, StateInfo } from '@/useCases/Integrators'
+import {
+  CompanySizeInfo,
+  IntegratorType,
+  StateInfo,
+} from '@/useCases/Integrators'
 import { ServiceIntegrator } from '@/useCases/interfaces/ServiceIntegrator'
 
 export class MemoryError implements ServiceIntegrator {
+  async getCompanySizeInfo(): Promise<CompanySizeInfo[]> {
+    return new Promise((resolve, reject) => {
+      reject(
+        new Error(
+          `Erro ao buscar informações de integradores por porte da empresa.`,
+        ),
+      )
+    })
+  }
+
   async getStatesInfo(): Promise<StateInfo[]> {
     return new Promise((resolve, reject) => {
-      reject(new Error(`Erro ao buscar informações dos estados.`))
+      reject(
+        new Error(`Erro ao buscar informações de integradores por estados.`),
+      )
     })
   }
 

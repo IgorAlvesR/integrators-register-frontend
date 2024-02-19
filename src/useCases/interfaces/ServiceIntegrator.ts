@@ -1,4 +1,4 @@
-import { IntegratorType, StateInfo } from '../Integrators'
+import { CompanySizeInfo, IntegratorType, StateInfo } from '../Integrators'
 
 export interface ServiceIntegrator {
   getIntegrators(): Promise<IntegratorType[]>
@@ -6,4 +6,5 @@ export interface ServiceIntegrator {
   registerIntegrator(data: IntegratorType): Promise<void>
   editIntegrator(data: IntegratorType): Promise<void>
   getStatesInfo(): Promise<StateInfo[]>
+  getCompanySizeInfo(): Promise<CompanySizeInfo[]>
 }

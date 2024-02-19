@@ -22,7 +22,9 @@ export default function Register() {
       }
     },
     onSuccess() {
-      queryClient.invalidateQueries({ queryKey: [queries.INTEGRATORS_QUERY] })
+      queryClient.invalidateQueries({
+        queryKey: [queries.COMPANY_SIZE_INFO_QUERY, queries.INTEGRATORS_QUERY],
+      })
     },
   })
   return (

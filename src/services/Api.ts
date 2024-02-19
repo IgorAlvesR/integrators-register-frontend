@@ -1,8 +1,43 @@
-import { IntegratorType, StateInfo } from '@/useCases/Integrators'
+import {
+  CompanySize,
+  CompanySizeInfo,
+  IntegratorType,
+  StateInfo,
+} from '@/useCases/Integrators'
 import { ServiceIntegrator } from '@/useCases/interfaces/ServiceIntegrator'
 import axios from 'axios'
 
 export class Api implements ServiceIntegrator {
+  async getCompanySizeInfo(): Promise<CompanySizeInfo[]> {
+    const companySizeInfo: CompanySizeInfo[] = []
+    const integrators = await this.getIntegrators()
+
+    if (!integrators.length) {
+      throw new Error('Não foi possível buscar por integradores!')
+    }
+
+    const companySize: CompanySize[] = ['Grande', 'Media', 'Pequena']
+
+    for (const size of companySize) {
+      const integratorsByState = await axios.get(
+        `${process.env.API_BASE_URL}/integrators?companySize=${size}`,
+      )
+      if (!integratorsByState.data) {
+        throw new Error(
+          `Não foi possível buscar integradores pelo porte da empresa!`,
+        )
+      }
+
+      if (integratorsByState.data.length > 0) {
+        companySizeInfo.push({
+          size,
+          quantity: integratorsByState.data.length,
+        })
+      }
+    }
+    return companySizeInfo
+  }
+
   async getStatesInfo(): Promise<StateInfo[]> {
     const statesInfo: StateInfo[] = []
     const integrators = await this.getIntegrators()

@@ -1,6 +1,9 @@
-import { IntegratorType, StateInfo } from '@/useCases/Integrators'
+import {
+  CompanySizeInfo,
+  IntegratorType,
+  StateInfo,
+} from '@/useCases/Integrators'
 import { ServiceIntegrator } from '@/useCases/interfaces/ServiceIntegrator'
-import { resolve } from 'dns'
 
 export class Memory implements ServiceIntegrator {
   private integrators: IntegratorType[] = []
@@ -18,6 +21,15 @@ export class Memory implements ServiceIntegrator {
         companySize: 'Media',
       },
     ]
+  }
+
+  async getCompanySizeInfo(): Promise<CompanySizeInfo[]> {
+    return new Promise((resolve) => {
+      const comapanySizeInfo: CompanySizeInfo[] = [
+        { size: 'Grande', quantity: 5 },
+      ]
+      resolve(comapanySizeInfo)
+    })
   }
 
   async getStatesInfo(): Promise<StateInfo[]> {

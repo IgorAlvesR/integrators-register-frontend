@@ -7,6 +7,11 @@ export type StateInfo = {
   quantity: number
 }
 
+export type CompanySizeInfo = {
+  size: CompanySize
+  quantity: number
+}
+
 export type IntegratorType = {
   id: string
   cpfCnpj: string
@@ -61,6 +66,17 @@ export class Integrator {
       return response
     } catch (error) {
       throw new Error('Não foi possível buscar integradores por estado!')
+    }
+  }
+
+  async getCompanySizeInfo(): Promise<CompanySizeInfo[]> {
+    try {
+      const response = await this.api.getCompanySizeInfo()
+      return response
+    } catch (error) {
+      throw new Error(
+        'Não foi possível buscar integradores por porte da empresa!',
+      )
     }
   }
 }
