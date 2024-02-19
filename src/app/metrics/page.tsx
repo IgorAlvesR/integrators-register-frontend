@@ -45,7 +45,7 @@ export default function Page() {
       },
     )
 
-  if (!dataStateQuery?.length && !dataCompanySizeQuery) {
+  if (!dataStateQuery?.length && !dataCompanySizeQuery.length) {
     return <EmptyPage message="Não há informações sobre integradores!" />
   }
 
