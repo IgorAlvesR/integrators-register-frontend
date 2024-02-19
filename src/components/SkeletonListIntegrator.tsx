@@ -2,7 +2,7 @@ import { Skeleton } from './ui/skeleton'
 
 function SkeletonCard() {
   return (
-    <Skeleton className="h-44 p-6 w-full flex flex-col gap-4 justify-between">
+    <Skeleton className="bg-transparent border rounded-xl h-44 p-6 w-full flex flex-col gap-4 justify-between">
       <div className="h-2 flex items-center gap-6">
         <Skeleton className="h-2 w-full" />
         <div className="flex items-center gap-3 self-start">

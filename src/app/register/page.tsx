@@ -1,6 +1,7 @@
 'use client'
 import { FormIntegrator } from '@/components/FormIntegrator'
 import { queryClient } from '@/lib/queryClient'
+import { queries } from '@/queries'
 import { Api } from '@/services/Api'
 import { Integrator, IntegratorType } from '@/useCases/Integrators'
 import { useMutation } from 'react-query'
@@ -21,7 +22,7 @@ export default function Register() {
       }
     },
     onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ['integratorsQuery'] })
+      queryClient.invalidateQueries({ queryKey: [queries.INTEGRATORS_QUERY] })
     },
   })
   return (

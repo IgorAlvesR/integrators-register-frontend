@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
-import { Integrator, IntegratorType } from '../../useCases/Integrators'
 import { Memory } from '../../services/Memory'
 import { MemoryError } from '../../services/MemoryError'
+import { Integrator, IntegratorType } from '../../useCases/Integrators'
 
 test('deve retornar uma lista de integradores', async () => {
   const service = new Memory()
@@ -106,5 +106,20 @@ test('deve retornar um erro ao editar um integrador', async () => {
   const integrator = new Integrator(service)
   expect(() => integrator.editIntegrator(editedIntegrator)).rejects.toThrow(
     'Não foi possível editar os dados do integrador!',
+  )
+})
+
+test('deve retornar as informações de integradores por estado', async () => {
+  const service = new Memory()
+  const integrator = new Integrator(service)
+  const statesInfo = await integrator.getStatesInfo()
+  expect(statesInfo).toHaveLength(1)
+})
+
+test('deve retornar um erro ao buscar informações de integradores por estado', async () => {
+  const service = new MemoryError()
+  const integrator = new Integrator(service)
+  expect(() => integrator.getStatesInfo()).rejects.toThrow(
+    'Não foi possível buscar integradores por estado!',
   )
 })

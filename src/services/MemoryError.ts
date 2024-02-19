@@ -1,7 +1,13 @@
-import { IntegratorType } from '@/useCases/Integrators'
-import { ServiceIntegrator } from '@/useCases/ServiceIntegrator'
+import { IntegratorType, StateInfo } from '@/useCases/Integrators'
+import { ServiceIntegrator } from '@/useCases/interfaces/ServiceIntegrator'
 
 export class MemoryError implements ServiceIntegrator {
+  async getStatesInfo(): Promise<StateInfo[]> {
+    return new Promise((resolve, reject) => {
+      reject(new Error(`Erro ao buscar informações dos estados.`))
+    })
+  }
+
   async editIntegrator(data: IntegratorType): Promise<void> {
     return new Promise((resolve, reject) => {
       reject(new Error(`Erro ao editar dados do integrador ${data.id}`))

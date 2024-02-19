@@ -1,9 +1,11 @@
 'use client'
 import { CardIntegrator } from '@/components/CardIntegrator'
 import { EditIntegrator } from '@/components/EditIntegrator'
+import { EmptyPage } from '@/components/EmptyPage'
 import { RemoveIntegrator } from '@/components/RemoveIntegrator'
 import { SkeletonListIntegrator } from '@/components/SkeletonListIntegrator'
 import { queryClient } from '@/lib/queryClient'
+import { queries } from '@/queries'
 import { Api } from '@/services/Api'
 import { Integrator, IntegratorType } from '@/useCases/Integrators'
 import { useMutation, useQuery } from 'react-query'
@@ -14,7 +16,7 @@ const integratorUseCase = new Integrator(serviceApi)
 
 export default function Integrators() {
   const { isLoading: isLoadingIntegrators, data } = useQuery<IntegratorType[]>(
-    'integratorsQuery',
+    queries.INTEGRATORS_QUERY,
     async () => {
       const integrators = await integratorUseCase.getIntegrators()
       return integrators
@@ -38,7 +40,7 @@ export default function Integrators() {
       }
     },
     onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ['integratorsQuery'] })
+      queryClient.invalidateQueries({ queryKey: [queries.INTEGRATORS_QUERY] })
     },
   })
 
@@ -53,7 +55,7 @@ export default function Integrators() {
       }
     },
     onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ['integratorsQuery'] })
+      queryClient.invalidateQueries({ queryKey: [queries.INTEGRATORS_QUERY] })
     },
   })
 
@@ -64,13 +66,7 @@ export default function Integrators() {
   }
 
   if (isEmptyList) {
-    return (
-      <section>
-        <p data-testid="empty-list" className="text-md font-medium opacity-85">
-          Sem informações de integradores.
-        </p>
-      </section>
-    )
+    return <EmptyPage message="Sem informações de integradores." />
   }
 
   return (
