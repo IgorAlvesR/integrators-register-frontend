@@ -75,6 +75,8 @@ export function FormIntegrator({
     },
   })
 
+  const panelBrandWatch = form.watch('panelBrand')
+
   useEffect(() => {
     if (!isLoading) {
       form.reset()
@@ -169,46 +171,64 @@ export function FormIntegrator({
             control={form.control}
             name="panelBrand"
             render={() => (
-              <FormItem className=" border rounded-md p-3">
+              <FormItem>
                 <FormLabel>Marcas de panéis</FormLabel>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                  {panelBrands.map((panelBrand) => (
-                    <FormField
-                      key={panelBrand.id}
-                      control={form.control}
-                      name="panelBrand"
-                      render={({ field }) => {
-                        return (
-                          <FormItem
-                            key={panelBrand.id}
-                            className="space-y-0 flex items-center gap-1"
-                          >
-                            <FormControl>
-                              <Checkbox
-                                checked={field.value?.includes(panelBrand.id)}
-                                onCheckedChange={(checked: boolean) => {
-                                  return checked
-                                    ? field.onChange([
-                                        ...field.value,
-                                        panelBrand.id,
-                                      ])
-                                    : field.onChange(
-                                        field.value?.filter(
-                                          (value) => value !== panelBrand.id,
-                                        ),
-                                      )
-                                }}
-                              />
-                            </FormControl>
-                            <FormLabel className="text-sm font-normal cursor-pointer">
-                              {panelBrand.value}
-                            </FormLabel>
-                          </FormItem>
-                        )
-                      }}
-                    />
-                  ))}
-                </div>
+                <Select>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue
+                        placeholder={
+                          panelBrandWatch.length
+                            ? `${panelBrandWatch.length} marcas selecionada(s)`
+                            : 'Selecione uma marca...'
+                        }
+                      />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <div className="grid grid-cols-1 gap-3">
+                      {panelBrands.map((panelBrand) => (
+                        <FormField
+                          key={panelBrand.id}
+                          control={form.control}
+                          name="panelBrand"
+                          render={({ field }) => {
+                            return (
+                              <FormItem
+                                key={panelBrand.id}
+                                className="space-y-0 flex items-center gap-1"
+                              >
+                                <FormControl>
+                                  <Checkbox
+                                    checked={field.value?.includes(
+                                      panelBrand.id,
+                                    )}
+                                    onCheckedChange={(checked: boolean) => {
+                                      return checked
+                                        ? field.onChange([
+                                            ...field.value,
+                                            panelBrand.id,
+                                          ])
+                                        : field.onChange(
+                                            field.value?.filter(
+                                              (value) =>
+                                                value !== panelBrand.id,
+                                            ),
+                                          )
+                                    }}
+                                  />
+                                </FormControl>
+                                <FormLabel className="text-sm font-normal cursor-pointer">
+                                  {panelBrand.value}
+                                </FormLabel>
+                              </FormItem>
+                            )
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}
