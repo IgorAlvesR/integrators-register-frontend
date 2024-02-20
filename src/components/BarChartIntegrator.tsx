@@ -38,7 +38,7 @@ export function BarChartIntegrator({
   return (
     <>
       <main className="flex text-xs md:text-lg md:text-md h-[500px] border rounded flex-col">
-        <h1 className="p-6 text-2xl font-semibold">{title}</h1>
+        <h1 className="p-6 text-lg md:text-2xl font-semibold">{title}</h1>
         {!!data.length && (
           <ResponsiveContainer width="100%" height="80%" className="mt-10">
             <BarChart data={data}>

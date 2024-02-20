@@ -45,7 +45,13 @@ export default function Page() {
       },
     )
 
-  if (!dataStateQuery?.length && !dataCompanySizeQuery.length) {
+  const isEmptyPage =
+    statusStateQuery !== 'loading' &&
+    statusCompanySizeQuery !== 'loading' &&
+    !dataStateQuery?.length &&
+    !dataCompanySizeQuery.length
+
+  if (isEmptyPage) {
     return <EmptyPage message="Não há informações sobre integradores!" />
   }
 
