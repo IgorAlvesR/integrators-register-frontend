@@ -38,7 +38,7 @@ export function EditIntegrator({
         </span>
       </DialogTrigger>
 
-      <DialogContent className="lg:w-auto lg:h-auto max-w-screen h-screen overflow-auto">
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>Atualizar dados do Integrador</DialogTitle>
         </DialogHeader>

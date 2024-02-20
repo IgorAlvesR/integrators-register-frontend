@@ -56,7 +56,7 @@ export default function Integrators() {
     },
     onSuccess() {
       queryClient.invalidateQueries({
-        queryKey: [queries.COMPANY_SIZE_INFO_QUERY, queries.INTEGRATORS_QUERY],
+        queryKey: [queries.INTEGRATORS_QUERY],
       })
     },
   })
