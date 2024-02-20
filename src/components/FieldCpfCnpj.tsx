@@ -1,10 +1,10 @@
 import { cn } from '@/lib/utils'
-import { LegacyRef, forwardRef } from 'react'
+import { ChangeEvent, LegacyRef, forwardRef } from 'react'
 import InputMask from 'react-input-mask'
 
 type FieldCpfCnpjProps = {
   value: string
-  onChange: (...event: any[]) => void
+  onChange: (...event: ChangeEvent<HTMLInputElement>[]) => void
 }
 
 function selectMask(cpfCnpj: string) {
