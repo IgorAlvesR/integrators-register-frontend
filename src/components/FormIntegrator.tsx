@@ -179,7 +179,7 @@ export function FormIntegrator({
                       <SelectValue
                         placeholder={
                           panelBrandWatch.length
-                            ? `${panelBrandWatch.length} marcas selecionada(s)`
+                            ? `${panelBrandWatch.length} marca(s) selecionada(s)`
                             : 'Selecione uma marca...'
                         }
                       />
