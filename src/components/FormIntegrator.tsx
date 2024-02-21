@@ -90,9 +90,9 @@ export function FormIntegrator({
         onSubmit={form.handleSubmit((data) =>
           onSubmit({ ...data, id: integrator?.id } as IntegratorType),
         )}
-        className="space-y-6"
+        className="space-y-2 sm:space-y-6"
       >
-        <section className="space-y-3">
+        <section className="space-y-1 sm:space-y-3">
           <FormField
             control={form.control}
             name="cpfCnpj"
