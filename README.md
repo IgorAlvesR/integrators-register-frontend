@@ -1,4 +1,4 @@
-# CADASTRO DE INTEGRADORES
+# CADASTRO DE INTEGRADORES (Frontend)
 
 ![GitHub code size](https://img.shields.io/github/languages/code-size/igoralvesr/integrators-register-frontend)
 ![GitHub repo file or directory
@@ -57,8 +57,7 @@ utilizando esse padrão o código fica mais legível e de fácil manutenção. (
 Para utilizar e testar o projeto, esteja em um computador com Node Js instalado e siga as
 etapas abaixo:
 
-- OBS:
-* Necessário node 18 instalado na máquina.
+- OBS: * Necessário node 18 instalado na máquina.
 
 1 Clone o projeto com o comando
 ```
@@ -91,6 +90,8 @@ npm run test -> para rodar todos os testes
 npm run test:unit -> para testes unitários
 npm run test:integration -> para testes de integração
 ```
+
+## Acesse o projeto em https://integradores.vercel.app/
 
 ## 🌐 Links úteis
 [NodeJS](https://nodejs.org/en/download)
