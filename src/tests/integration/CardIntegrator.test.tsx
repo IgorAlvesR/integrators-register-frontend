@@ -26,13 +26,11 @@ test('deve abrir o modal de confirmação de remoção', async () => {
 
   render(
     <CardIntegrator integrator={integrator}>
-      <EditIntegrator integrator={integrator} onEdit={() => ({})} />
       <RemoveIntegrator integrator={integrator} onRemove={() => ({})} />
     </CardIntegrator>,
   )
   const [btnRemove] = screen.getAllByTestId('btn-remove-integrator')
   fireEvent.click(btnRemove)
   const btnConfirmRemove = screen.getByText(/Confirmar/)
-
   expect(btnConfirmRemove).toBeDefined()
 })

@@ -32,13 +32,13 @@ export function EditIntegrator({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
+      <DialogTrigger data-testid="edit-button">
         <span className="rounded-full flex items-center hover:bg-primary-foreground transition-all">
           <PencilLine className="w-5 h-5 cursor-pointer" />
         </span>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent data-testid="edit-dialog-content">
         <DialogHeader>
           <DialogTitle>Atualizar dados do Integrador</DialogTitle>
         </DialogHeader>
